@@ -18,12 +18,10 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 ## How to create a CWC from this stuff:
 
 1. Download/pull/whatever the code
-2. cd in the {8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7} folder
-3. Create {8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip file with the {8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7} folder content
-
-Do not include the {8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7} folder itself as root folder in the file zip!
-
-4. Copy the {8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip file in C:\Program Files\Siemens\Automation\Portal V1x\Data\Hmi\CustomControls folder
-5. Refresh the "My Controls" right side pane in the TIA Portal WinCC Unified screen editor
+2. cd in the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}** folder
+3. Create **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file with the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}** folder content
+> [!IMPORTANT]
+> Do not include the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}** folder itself as root folder in the file zip!
+4. Copy the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file in **C:\Program Files\Siemens\Automation\Portal V1x\Data\Hmi\CustomControls** folder
+5. Refresh the **My Controls** right side pane in the TIA Portal WinCC Unified screen editor
 6. Enjoy
-
