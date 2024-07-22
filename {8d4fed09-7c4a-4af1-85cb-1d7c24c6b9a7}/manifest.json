@@ -1,0 +1,102 @@
+{
+    "mver": "1.2.0",
+    "control": {
+        "identity": {
+            "name": "Palletizer",
+            "version": "1.0",
+            "displayname": "Palletizer",
+            "icon": "./assets/pallets.png",
+            "type": "guid://8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7",
+            "start": "./control/index.html"
+        },
+        "environment": {
+            "extensions": {
+                "HMI": {
+                    "mandatory": true,
+                    "version": "~1.0.0"
+                }
+            }
+        },
+        "metadata": {
+            "author": "Marco Buffa"
+        },
+        "contracts": {
+            "api": {
+                "methods": {
+                    "AddBox": {
+                        "parameters": {
+                            "box": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Add a new box to the playground"
+                    },
+                    "DelBox": {
+                        "parameters": {
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Remove a box from the playground"
+                    },
+                    "Reset": {
+                        "parameters": {},
+                        "description": "Reset to initial configuration"
+                    }
+                },
+                "events": {
+                    "BoxSelected": {
+                        "arguments": {
+                            "SelectedBoxId": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Notify a box selection"
+                    },
+                    "BoxMoving": {
+                        "arguments": {
+                            "MovingBox": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Notify a realtime box moving"
+                    },
+                    "BoxReleased": {
+                        "arguments": {
+                            "NewBoxesConfig": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Notify a box end of moving"
+                    },
+                    "BoxCreated": {
+                        "arguments": {
+                            "Box": {
+                                "type": "string"
+                            }
+                        },
+                        "description": "Notify the creation of a new box"
+                    },
+                    "BoxDeleted": {
+                        "arguments": {
+                            "Id": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "properties": {
+                    "PlayGroundConfig":{
+                        "type": "string",
+                        "default": "{\"sizeX\": 800, \"sizeZ\": 600}"
+                    },
+                    "InitialBoxesConfig":{
+                        "type": "string",
+                        "default": "[{\"id\": \"box0\", \"sizeX\": 100, \"sizeZ\": 150, \"sizeY\": 100, \"posX\": -350, \"posY\": 50, \"posZ\": -225, \"color\": \"0x0099aa\"}]"
+                    }
+                }
+            }
+        },
+        "types": {}
+    }
+}
