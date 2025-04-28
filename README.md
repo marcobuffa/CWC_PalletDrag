@@ -25,3 +25,9 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 4. Copy the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file in **C:\Program Files\Siemens\Automation\Portal V1x\Data\Hmi\CustomControls** folder
 5. Refresh the **My Controls** right side pane in the TIA Portal WinCC Unified screen editor
 6. Enjoy
+
+## Disclaimer
+
+The code provided in this repository is intended as an example only. We do not guarantee that the code is error-free or suitable for any specific purpose. Use of the code is at the user's discretion. We do not assume any responsibility for any issues arising from the use of the code. 
+
+The copyright of any libraries included in the code belongs to their respective developers.
