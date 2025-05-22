@@ -8,7 +8,7 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 
 ## ToDo:
 
-- [x] Get requirement
+- [x] Get requirements
 - [x] Find a good idea
 - [x] Find a good js library
 - [x] Write code
@@ -25,14 +25,14 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 > Do not include the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}** folder itself as root folder in the file zip!
 4. Copy the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file in **C:\Program Files\Siemens\Automation\Portal Vxx\Data\Hmi\CustomControls** folder
 5. (Re)start TIA Portal
-6. Drag your new 3D CWC from the **My Controls** right side pane in a WinCC Unified screen
+6. Drag your new CWC from the **My Controls** right side pane in a WinCC Unified screen
 7. Enjoy
 
 ## How to directly download this CWC (if you are in a hurry):
 1. Download from [here](Build/{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip?raw=true)
 2. Copy the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file in **C:\Program Files\Siemens\Automation\Portal Vxx\Data\Hmi\CustomControls** folder
 3. (Re)start TIA Portal
-4. Drag your new 3D CWC from the **My Controls** right side pane in a WinCC Unified screen
+4. Drag your new CWC from the **My Controls** right side pane in a WinCC Unified screen
 5. Enjoy
 
 ## Documentation:
