@@ -37,11 +37,11 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 
 ## Documentation:
 
-This CWC (Custom Web Control) is intended to generate an array of coordinates leveraging a simplified interaction method with the operator.
+This CWC (Custom Web Control) is intended to generate an array of coordinates leveraging a simplified interaction method with the operator (drag&drop).
 
 This happens making the CWC generate events on interaction and react to methods called by WinCC Unified.
 
-### The box:
+### The "box":
 The data exchanged between the CWC and WinCC Unified is based on the "box" object:
 
 ```
@@ -64,21 +64,21 @@ The data exchanged between the CWC and WinCC Unified is based on the "box" objec
 Here you have a short description of events, methods and parameters supported by this CWC.
 
 #### Events:
-- `BoxSelected`. This event is fired when a box is selected in the playground and delivers a string argument: `SelectedBoxId`. This represents the alphanumeric Id of the box which has been just selected.
-- `BoxMoving`. This event is countinously fired in order to deliver a realtime information about the position of a box which is selected and dragged, just during the movement. This is done delivering the argument `MovingBox`, a JSON string which the typical box structure.
-- `BoxReleased`. This event is fired when a box is released, even if not moved. The event deliver the complete array of box JSON structure currently in the playground.
-- `BoxCreated`. This event is raised as soon as a new box is added to the playground, typically responding to the `AddBox` method. The argument delivered is the new box JSON structure.
-- `BoxDeleted`. This event is raised as soon as a new box is removed from the playground, typically responding to the `DelBox` method. The argument delivered is the removed box Id.
+- **`BoxSelected`**. This event is fired when a box is selected in the playground and delivers a string argument: **`SelectedBoxId`**. This represents the alphanumeric Id of the box which has been just selected.
+- **`BoxMoving`**. This event is countinously fired in order to deliver a realtime information about the position of a box which is selected and dragged, just during the movement. This is done delivering the argument **`MovingBox`**, a JSON string which the typical box structure.
+- **`BoxReleased`**. This event is fired when a box is released, even if not moved. The event deliver the complete array of box JSON structure currently in the playground.
+- **`BoxCreated`**. This event is raised as soon as a new box is added to the playground, typically responding to the **`AddBox`** method. The argument delivered is the new box JSON structure.
+- **`BoxDeleted`**. This event is raised as soon as a new box is removed from the playground, typically responding to the **`DelBox`** method. The argument delivered is the removed box Id.
 
 #### Methods:
-- `AddBox`. This method causes a new box to be created in the playground. It takes a JSON box structure as argument. Some fields are optional `(Id, color, PosY)`
-- `DelBox`. This method causes a box to be removed from the playground. It takes a box Id as single parameter, which can be omitted. In this case, the last selected box, if any, is removed.
-- `Reset`. This method has no arguments and just causes the CWC to restart from the InitialBoxesConfig box and PlayGroundConfig configurations parameters.
+- **`AddBox`**. This method causes a new box to be created in the playground. It takes a JSON box structure as argument. Some fields are optional **`(Id, color, PosY)`**
+- **`DelBox`**. This method causes a box to be removed from the playground. It takes a box Id as single parameter, which can be omitted. In this case, the last selected box, if any, is removed.
+- **`Reset`**. This method has no arguments and just causes the CWC to restart from the **`InitialBoxesConfig`** box and **`PlayGroundConfig`** configurations parameters.
 
 #### Parameters:
 This CWC has accepts 2 static parameters, which represents the initial configuration of the CWC:
-- `PlayGroundConfig`. This parameter is a JSON string with the playground size in pixels: `{'sizeX': 800, 'sizeZ': 600}`
-- `InitialBoxesConfig`. This parameter is a JSON array of box structures, which represents the initial configuration of the playground in term of boxes.
+- **`PlayGroundConfig`**. This parameter is a JSON string with the playground size in pixels: **`{'sizeX': 800, 'sizeZ': 600}`**
+- **`InitialBoxesConfig`**. This parameter is a JSON array of box structures, which represents the initial configuration of the playground in term of boxes.
 
 ## TIA Portal example project:
 You can download a TIA Portal V20 Update 3 example project [here](Demo/TestPallet2D_20250522_1519.zap20?raw=true)
