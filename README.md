@@ -76,8 +76,8 @@ Here you have a short description of events, methods and parameters supported by
 - **`Reset`**. This method has no arguments and just causes the CWC to restart from the **`InitialBoxesConfig`** box and **`PlayGroundConfig`** configurations parameters.
 
 #### Parameters:
-This CWC has accepts 2 static parameters, which represents the initial configuration of the CWC:
-- **`PlayGroundConfig`**. This parameter is a JSON string with the playground size in pixels: **`{'sizeX': 800, 'sizeZ': 600}`**
+This CWC has accepts 2 static parameters, which represent the initial configuration of the CWC:
+- **`PlayGroundConfig`**. This parameter is a JSON string with the playground size in pixels: **`{'sizeX': 800, 'sizeZ': 600}`**.
 - **`InitialBoxesConfig`**. This parameter is a JSON array of box structures, which represents the initial configuration of the playground in term of boxes.
 
 ## TIA Portal example project:
