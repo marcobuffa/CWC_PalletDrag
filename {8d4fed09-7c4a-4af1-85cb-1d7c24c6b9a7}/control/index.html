@@ -16,7 +16,7 @@
             //altezza sul pallet: Y
 
             //configurazione iniziale scatole
-            var JSconfig = [{'id': 'box0', 'sizeX': 100, 'sizeZ': 150, 'sizeY': 100, 'posX': -350, 'posY': 50, 'posZ': -225, 'color': '0x0099aa'}];
+            var JSconfig = [{'id': 'box0', 'sizeX': 150, 'sizeZ': 100, 'sizeY': 10, 'posX': 0, 'posY': 50, 'posZ': 0, 'color': '0x009999'}];
 
             //dimensione iniziale pallet
             var JSplayGround = {'sizeX': 800, 'sizeZ': 600};
@@ -31,7 +31,7 @@
                 const divToAdd = document.createElement('div'); //div contenente il pallet
                 divToAdd.setAttribute('id', 'PalletStage'); //aggiungi l'id "PalletStage" al div
                 //divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px; background-color: black;'); //stile e dimensioni pallet
-                divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px;'); //stile e dimensioni pallet
+                divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px; border-style: solid;'); //stile e dimensioni pallet
                 document.getElementById('PalletContainer').appendChild(divToAdd); //aggiungi il pallet alla pagina
             }
 
@@ -62,8 +62,10 @@
                 rectToAdd.setAttribute('width', box.sizeX); //larghezza rettangolo
                 svgToAdd.setAttribute('height', box.sizeZ); //altezza SVG
                 rectToAdd.setAttribute('height', box.sizeZ); //altezza rettangolo
+                //rectToAdd.setAttribute('rx', box.sizeX/5); //raggio
+                //rectToAdd.setAttribute('ry', box.sizeZ/5); //raggio
                 svgToAdd.setAttribute('id', box.id); //id scatola (viene inserito nell'id della SVG)
-                svgToAdd.setAttribute('style', 'position: absolute; top: 0px; left: 0px'); //posizione iniziale SVG (altrimenti viene inserita a caso)
+                
                 rectToAdd.setAttribute('style', 'fill:' + box.color.replace('0x', '#') + '80' + '; stroke-width: 2; stroke: white'); //bordo rettangolo
                 textToAdd.setAttribute('x', '50%'); //posizione orizzontale testo
                 textToAdd.setAttribute('y', '50%'); //posizione verticale testo
@@ -79,8 +81,8 @@
                 drag = new PlainDraggable(document.getElementById(box.id),
                     {
                         //imposta posizione iniziale
-                        left: box.posX,
-                        top: box.posZ,
+                        //left: box.posX,
+                        //top: box.posZ,
 
                         onMove: function(nuovaPos){ //funzione chiamata durante lo spostamento della scatola
                             this.position(); //mantieni aggiornata la posizione
@@ -119,6 +121,8 @@
                 );
                 draggable.push(drag); //aggiungila al pool
 
+                svgToAdd.setAttribute('style', 'position: absolute; top: ' + (box.posX + JSplayGround.sizeX/2 - box.sizeX/2) + 'px; left: ' + (box.posZ + JSplayGround.sizeZ/2 - box.sizeZ/2) + 'px'); //posizione iniziale SVG (altrimenti viene inserita a caso)
+
                 //ricalcola lo snap di tutte le scatole (ogni scatola si appiccica alle altre e ai bordi del pallet)
                 let j = 0;
                 draggable.forEach(element => {
@@ -149,7 +153,6 @@
                     newBoxNumber++;
                 }
                 NewBox(box); //crea scatola plain-draggable.js
-                //threeNewBox(box); //crea scatola three.js
                 JSconfig.push(box); //aggiungila alla stringa json
             }
 
@@ -180,13 +183,6 @@
                         wincc = true;
                         JSconfig = JSON.parse(WebCC.Properties.InitialBoxesConfig);
                         JSplayGround = JSON.parse(WebCC.Properties.PlayGroundConfig);
-                        try {
-                            //WebCC.onPropertyChanged.subscribe(dataFromWinCC); //callback nuovi dati da WinCC
-                            //WebCC.Events.fire("StepChanged", currentStepNumber); //genera evento di cambio Step (con argomento lo Step)
-                        } 
-                        catch (error) {
-                            console.log(error);
-                        }
                     } else {
                         console.log("Let me alone: I'm not in WinCC :-(");
                     }
@@ -220,9 +216,11 @@
                             CreatePlayground();
                             JSconfig = JSON.parse(WebCC.Properties.InitialBoxesConfig);
                             JSconfig.forEach(element => {
-                                NewBox(element, draggable.length);
+                                //NewBox(element, draggable.length);
+                                NewBox(element);
                             });
-                            var selectedId = ''; //nessuna scatola selezionata
+                            newBoxNumber = JSconfig.length; //ricomincia conteggio scatole per assegnare i nomi
+                            selectedId = ''; //nessuna scatola selezionata;
                             WebCC.Events.fire("BoxSelected", ''); //cancella selezione verso WinCC
                             WebCC.Events.fire("BoxReleased", JSON.stringify(JSconfig)); //aggiorna posizione scatole
                         }
