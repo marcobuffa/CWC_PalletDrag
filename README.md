@@ -13,7 +13,8 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 - [x] Find a good js library
 - [x] Write code
 - [x] Debug
-- [ ] Write a meaningful documentation
+- [x] Write a meaningful documentation
+- [ ] Further improvements
 
 ## How to create a CWC from this stuff:
 
@@ -28,7 +29,7 @@ Based on [anseki's plain-draggable.js library](https://github.com/anseki/plain-d
 7. Enjoy
 
 ## How to directly download this CWC (if you are in a hurry):
-1. Download from [here](build/{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip?raw=true)
+1. Download from [here](Build/{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip?raw=true)
 2. Copy the **{8d4fed09-7c4a-4af1-85cb-1d7c24c6b9a7}.zip** file in **C:\Program Files\Siemens\Automation\Portal Vxx\Data\Hmi\CustomControls** folder
 3. (Re)start TIA Portal
 4. Drag your new 3D CWC from the **My Controls** right side pane in a WinCC Unified screen
@@ -57,7 +58,7 @@ The data exchanged between the CWC and WinCC Unified is based on the "box" objec
 ```
 
 > [!IMPORTANT]
-> The 2D coordinates of the playground are X (horizontal axis) and Z (vertical axis). Y is currently not used for future 3D implementations.
+> The 2D coordinates of the playground are X (horizontal axis) and Z (vertical axis). Y is currently not used (future 3D implementations).
 
 ### Data exchange
 Here you have a short description of events, methods and parameters supported by this CWC.
@@ -79,8 +80,10 @@ This CWC has accepts 2 static parameters, which represents the initial configura
 - `PlayGroundConfig`. This parameter is a JSON string with the playground size in pixels: `{'sizeX': 800, 'sizeZ': 600}`
 - `InitialBoxesConfig`. This parameter is a JSON array of box structures, which represents the initial configuration of the playground in term of boxes.
 
-## Disclaimer
+## TIA Portal example project:
+You can download a TIA Portal V20 Update 3 example project [here](Demo/TestPallet2D_20250522_1519.zap20?raw=true)
 
+## Disclaimer
 The code provided in this repository is intended as an example only. We do not guarantee that the code is error-free or suitable for any specific purpose. Use of the code is at the user's discretion. We do not assume any responsibility for any issues arising from the use of the code. 
 
 The copyright of any libraries included in the code belongs to their respective developers.
