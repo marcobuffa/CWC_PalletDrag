@@ -16,7 +16,7 @@
             //altezza sul pallet: Y
 
             //configurazione iniziale scatole
-            var JSconfig = [{'id': 'box0', 'sizeX': 150, 'sizeZ': 100, 'sizeY': 10, 'posX': 0, 'posY': 50, 'posZ': 0, 'color': '0x009999'}];
+            var JSconfig = [{'id': 'box0', 'sizeX': 150, 'sizeZ': 100, 'sizeY': 100, 'posX': 0, 'posY': 50, 'posZ': 0, 'color': '0x009999'}];
 
             //dimensione iniziale pallet
             var JSplayGround = {'sizeX': 800, 'sizeZ': 600};
@@ -31,7 +31,7 @@
                 const divToAdd = document.createElement('div'); //div contenente il pallet
                 divToAdd.setAttribute('id', 'PalletStage'); //aggiungi l'id "PalletStage" al div
                 //divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px; background-color: black;'); //stile e dimensioni pallet
-                divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px; border-style: solid;'); //stile e dimensioni pallet
+                divToAdd.setAttribute('style', 'width: ' + JSplayGround.sizeX + 'px; height: ' + JSplayGround.sizeZ + 'px;'); //stile e dimensioni pallet
                 document.getElementById('PalletContainer').appendChild(divToAdd); //aggiungi il pallet alla pagina
             }
 
@@ -39,6 +39,21 @@
             function RandomColor(){
                 let RGB = Math.floor(Math.random()*16777215).toString(16);
                 return '0x' + RGB.padStart(6, '0');
+            }
+
+            //funzione per generare le coordinate del centro della scatola centrata sul playground (draggable fornisce top/left a partire dall'angolo
+            //superiore a sinistra del playground)
+            function GetCenteredPos(box, pos, playground){
+                box.posX = Math.round((pos.left + box.sizeX/2) - playground.sizeX/2);
+                box.posZ = Math.round((pos.top + box.sizeZ/2) - playground.sizeZ/2);
+            }
+
+            //funzioni per convertire le coordinate "centrate" in coordinate top/left
+            function GetRealTop(box, playground){
+                return (box.posZ + playground.sizeZ/2 - box.sizeZ/2);
+            }
+            function GetRealLeft(box, playground){
+                return box.posX + playground.sizeX/2 - box.sizeX/2;
             }
 
             //funzione per la creazione di una nuova scatola
@@ -50,7 +65,7 @@
                 // +-- testo
 
                 if (!box.color) box.color = RandomColor(); // se non c'è il colore, inventalo
-                if (!box.poxY) box.posY = box.sizeY/2; // se non c'è la posizione Y, appoggia la scatola sul pallet
+                if (!box.posY) box.posY = box.sizeY/2; // se non c'è la posizione Y, appoggia la scatola sul pallet
 
                 const divToAdd = document.getElementById('PalletStage'); //div a cui aggiungere la scatola
                 const svgToAdd = document.createElementNS("http://www.w3.org/2000/svg", 'svg'); //intestazione SVG
@@ -105,23 +120,21 @@
                         onDrag/*End*/: function(nuovaPos){ //funzione chiamata durante il trascinamento della scatola
                             //aggiorna stringa json scatole con le nuove posizioni
                             let theBox = JSconfig.find(x => x.id == box.id);
-                            JSconfig.find(x => x.id == box.id).posX = Math.round((nuovaPos.left + theBox.sizeX/2) - JSplayGround.sizeX/2);
-                            JSconfig.find(x => x.id == box.id).posZ = Math.round((nuovaPos.top + theBox.sizeZ/2) - JSplayGround.sizeZ/2);
-                            //threeMoveBox(theBox);
+                            GetCenteredPos(theBox, nuovaPos, JSplayGround);
                             if (wincc) WebCC.Events.fire("BoxMoving", JSON.stringify(theBox)); //genera evento di spostamento scatola in realtime passando la scatola come argomento
                         },
                         onDragEnd: function(nuovaPos){ //funzione chiamata al rilascio della scatola (anche se non si è mossa)
                             //aggiorna stringa json scatole con le nuove posizioni
                             let theBox = JSconfig.find(x => x.id == box.id);
-                            JSconfig.find(x => x.id == box.id).posX = Math.round((nuovaPos.left + theBox.sizeX/2) - JSplayGround.sizeX/2);
-                            JSconfig.find(x => x.id == box.id).posZ = Math.round((nuovaPos.top + theBox.sizeZ/2) - JSplayGround.sizeZ/2);
+                            GetCenteredPos(theBox, nuovaPos, JSplayGround);
+                            console.log(theBox);
                             if (wincc) WebCC.Events.fire("BoxReleased", JSON.stringify(JSconfig)); //genera evento di spostamento scatola passando la nuova configurazione come argomento
                         }
                     }
                 );
                 draggable.push(drag); //aggiungila al pool
 
-                svgToAdd.setAttribute('style', 'position: absolute; top: ' + (box.posX + JSplayGround.sizeX/2 - box.sizeX/2) + 'px; left: ' + (box.posZ + JSplayGround.sizeZ/2 - box.sizeZ/2) + 'px'); //posizione iniziale SVG (altrimenti viene inserita a caso)
+                svgToAdd.setAttribute('style', 'position: absolute; top: ' + GetRealTop(box, JSplayGround) + 'px; left: ' + GetRealLeft(box, JSplayGround) + 'px'); //posizione iniziale SVG (altrimenti viene inserita a caso)
 
                 //ricalcola lo snap di tutte le scatole (ogni scatola si appiccica alle altre e ai bordi del pallet)
                 let j = 0;
@@ -202,7 +215,7 @@
                         },
                         DelBox: function(id){
                             DelBoxByHTML(id);
-                            WebCC.Events.fire("BoxReleased", JSON.stringify(JSconfig));
+                            WebCC.Events.fire("BoxReleased", JSON.stringify(JSconfig)); //aggiorna posizione scatole
                         },
                         Reset: function(){
                             //rimuovi tutto
@@ -216,7 +229,6 @@
                             CreatePlayground();
                             JSconfig = JSON.parse(WebCC.Properties.InitialBoxesConfig);
                             JSconfig.forEach(element => {
-                                //NewBox(element, draggable.length);
                                 NewBox(element);
                             });
                             newBoxNumber = JSconfig.length; //ricomincia conteggio scatole per assegnare i nomi
